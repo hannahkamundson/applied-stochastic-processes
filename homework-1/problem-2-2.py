@@ -17,6 +17,8 @@ transition_matrix = np.array([
     [0.6, 0, 0.3, 0.1, 0]
 ])
 
+starting_state = np.array([0.5, 0, 0, 0, 0.5])
+
 # Goal: we want to do eigenvalue decomposition T = D diag(l) D^-1
 
 # Get the eigenvalues and eigenvectors
@@ -34,6 +36,20 @@ if OUTPUT:
     print("\nEigenvector inverse: ", eigenvector_inverse)
     print("\nDiagonizable eigenvalues: ", diagonizable_eigenvalues)
 
+######################################################################################
+# Problem 2.2 - part b
+######################################################################################
+    
+# Goal: a^(2)
+# Solution: aT^2
+    
+diagonalized_to_2nd = diagonizable_eigenvalues @ diagonizable_eigenvalues
+transition_to_2nd = eigenvector @ diagonalized_to_2nd @ eigenvector_inverse
+
+pmf_2 = starting_state @ transition_to_2nd
+
+if OUTPUT:
+    print("\na^(2): ", pmf_2)
 
 ######################################################################################
 # Problem 2.2 - part b
@@ -41,8 +57,6 @@ if OUTPUT:
 
 # Goal: P(X_2 = 2, X_4 = 5)
 # Solution: Calculate D(l^2)D^(-1)
-diagonalized_to_2nd = diagonizable_eigenvalues @ diagonizable_eigenvalues
-transition_to_2nd = eigenvector @ diagonalized_to_2nd @ eigenvector_inverse
 
 if OUTPUT:
     print("\nT^2: ", transition_to_2nd)
@@ -68,7 +82,6 @@ if OUTPUT:
 # For simplicity, define A = {1, 2, 3}, B = {4, 5}
 # Solution: calculate sum_{k in S} sum_{i in A} sum_{i in B} p_{i,j} p_{k,i} P(X_0 = k)
 
-starting_state = [0.5, 0, 0, 0, 0.5]
 state_space = {1, 2, 3, 4, 5}
 A = {1, 2, 3}
 B = {4, 5}
